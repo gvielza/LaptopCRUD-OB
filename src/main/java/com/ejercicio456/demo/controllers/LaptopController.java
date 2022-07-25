@@ -48,6 +48,10 @@ public class LaptopController {
 		Optional<Laptop> laptop = repo.findById(id);
 		if (laptop.get().getId() == null) {
 			log.warn("No aparece ese Id en la Base de datos");
+			return ResponseEntity.noContent().build();
+		}
+		if (!repo.existsById(laptop.get().getId())) {
+			log.warn("No aparece ese Id en la Base de datos");
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(laptop.get());
