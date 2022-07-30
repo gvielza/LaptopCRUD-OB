@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiParam;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,9 @@ import java.util.Optional;
 
 @RestController
 public class LaptopController {
+	@Value("${app.message}")
+	String mensaje;
+	
 	@Autowired
 	private LaptopRepository repo;
 
@@ -39,8 +43,9 @@ public class LaptopController {
 	@ApiOperation("Muestra todas las laptops en la base de datos")
 	@GetMapping("/api/laptops")
 	public List<Laptop> findAll() {
+		System.out.println(mensaje);
 		return repo.findAll();
-	}
+		}
 
 	@ApiOperation("Ingrese un id para encontrar la laptop en la BD")
 	@GetMapping("/api/laptops/{id}")
